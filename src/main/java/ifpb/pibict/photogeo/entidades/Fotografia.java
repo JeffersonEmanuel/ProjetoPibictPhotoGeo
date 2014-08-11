@@ -29,16 +29,16 @@ public class Fotografia {
     private String endereco;
 
     // data em que a fotografia foi capiturada
-    private Calendar data;
+    private String data;
 
     // horario em que a fotografia foi capiturada
-    private Calendar hora;
+    private String hora;
 
     // Altura da Fotografia
-    private float altura;
+    private String altura;
 
     // Largura da Fotografia
-    private float largura;
+    private String largura;
 
     // localização geografica Longitude da Fotografia
     private String geomLongitude;
@@ -79,35 +79,35 @@ public class Fotografia {
         this.endereco = endereco;
     }
 
-    public Calendar getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Calendar data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public Calendar getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Calendar hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
-    public float getAltura() {
+    public String getAltura() {
         return altura;
     }
 
-    public void setAltura(float altura) {
+    public void setAltura(String altura) {
         this.altura = altura;
     }
 
-    public float getLargura() {
+    public String getLargura() {
         return largura;
     }
 
-    public void setLargura(float largura) {
+    public void setLargura(String largura) {
         this.largura = largura;
     }
 

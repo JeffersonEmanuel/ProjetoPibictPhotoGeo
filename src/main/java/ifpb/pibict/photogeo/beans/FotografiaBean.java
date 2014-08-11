@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ifpb.pibict.photogeo.beans;
 
 import com.drew.imaging.ImageProcessingException;
@@ -30,12 +29,12 @@ import ifpb.pibict.photogeo.metadados.ExtrairMetadados;
  */
 @ManagedBean
 @SessionScoped
-public class FotografiaBean implements Serializable{
-    
+public class FotografiaBean implements Serializable {
+
     private Fotografia fotografia = new Fotografia();
-    
+
     private List<Fotografia> fotografias = new ArrayList<Fotografia>();
-    
+
     @ManagedProperty(value = "#{registrarServicoFotografia}")
     private RegistrarServicoFotografia servicoFotografia;
 
@@ -63,18 +62,20 @@ public class FotografiaBean implements Serializable{
     public void setServicoFotografia(RegistrarServicoFotografia servicoFotografia) {
         this.servicoFotografia = servicoFotografia;
     }
-    
+
     public String salvar() {
         this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
         this.fotografia = new Fotografia();
         return "templates/template.xhtml";
     }
-    
+
     private CriarImagem ci = new CriarImagem();
-    public String fotoComAlbum (FileUploadEvent event) throws ImageProcessingException, IOException {
-        ci.criarImagem(event);
-    return "templates/template.xhtml";
+
+    public String fotoComAlbum(FileUploadEvent event) throws ImageProcessingException, IOException {
+        this.fotografia = ci.criarImagem(event);
+        this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
+        this.fotografia = new Fotografia();
+        return "templates/template.xhtml";
     }
-    
-    
+
 }
