@@ -40,9 +40,12 @@ public class Fotografia {
     // Largura da Fotografia
     private float largura;
 
-    // localização geografica da Fotografia
-    private String geom;
+    // localização geografica Longitude da Fotografia
+    private String geomLongitude;
 
+     // localização geografica Latitude da Fotografia
+    private String geomLatitude;
+    
 //    // Lista de faces encontradas na fotografia
 //    @RelatedTo(type = "Face_Pertence_A", direction = Direction.INCOMING)
 //    private List<Face> faces;
@@ -108,14 +111,23 @@ public class Fotografia {
         this.largura = largura;
     }
 
-    public String getGeom() {
-        return geom;
+    public String getGeomLongitude() {
+        return geomLongitude;
     }
 
-    public void setGeom(String geom) {
-        this.geom = geom;
+    public void setGeomLongitude(String geomLongitude) {
+        this.geomLongitude = geomLongitude;
     }
 
+    public String getGeomLatitude() {
+        return geomLatitude;
+    }
+
+    public void setGeomLatitude(String geomLatitude) {
+        this.geomLatitude = geomLatitude;
+    }
+
+  
     public Album getAlbum() {
         return album;
     }
