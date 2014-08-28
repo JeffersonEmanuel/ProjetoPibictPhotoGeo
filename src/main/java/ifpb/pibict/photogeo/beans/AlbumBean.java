@@ -1,7 +1,7 @@
 package ifpb.pibict.photogeo.beans;
 
+import com.google.common.collect.Lists;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -19,17 +19,15 @@ public class AlbumBean implements Serializable{
     
     private Album album = new Album();
         
-    private List<Album> albums = new ArrayList<Album>();
+    private List<Album> albums;
     
     @ManagedProperty(value = "#{registrarServicoAlbum}")
     private RegistrarServicoAlbum servico;
 
-
-    
     public String salvar () {
         this.servico.getAlbumRepository().save(this.album);
         this.album = new Album();
-        return "";
+        return "album.xhtml";
     } 
 
     public String abrirFotosDoAlbum () {
@@ -46,6 +44,7 @@ public class AlbumBean implements Serializable{
     }
 
     public List<Album> getAlbums() {
+        this.albums = Lists.newArrayList(this.servico.getAlbumRepository().findAll());
         return albums;
     }
 

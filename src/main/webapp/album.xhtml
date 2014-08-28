@@ -16,8 +16,6 @@
 
                 <p:commandButton value="Criar Album" onclick="PF('criarAlbum').show()"/>
 
-
-
                 <p:dialog widgetVar="criarAlbum" header="Novo Álbum" modal="true" height="550" width="1000" resizable="false">
                     <h:form id="criarAlbum">  
                         <h:panelGrid columns="3">
@@ -28,23 +26,22 @@
                                              value="#{albumBean.album.descricao}"/>
                             <p:spacer width="190" height="50"/>
                         </h:panelGrid>
-
-                        <p:commandButton value="Salvar" action="#{albumBean.salvar}" ajax="false" />
-
+                        <p:commandButton value="Salvar" action="#{albumBean.salvar}" />
                     </h:form>
                 </p:dialog>
 
+                
+                
                 <h:form id="addFotografia">
 
-
-                    <h:panelGrid columns="4">
+                    <p:dataGrid var="nomeAlbum" value="#{albumBean.albums}" >
 
                         <!--Falta fazer as o link para o album onde estão as fotografias-->
-                        <h:commandLink actionListener="#{albumBean.album}" value="Teste">
-                            <p:graphicImage url="imagens/2.jpg" width="100%"/>
+                        <h:commandLink value="#{nomeAlbum.nome}">
+                            <!--<p:graphicImage url="" width="100%"/>-->
                         </h:commandLink>
 
-                    </h:panelGrid>
+                    </p:dataGrid>
 
                 </h:form>
 
