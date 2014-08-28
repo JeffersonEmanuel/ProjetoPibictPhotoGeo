@@ -16,6 +16,12 @@
                 
                 
                 <h:form>
+                     <p:fileUpload fileUploadListener="#{fotografiaBean.fotoComAlbum}" 
+                                  label="Fotos" mode="advanced" 
+                                  multiple="true" auto="true"/>
+                    
+                    
+                    
                     <h:panelGrid columns="4">
                         <p:graphicImage url="#{fotografiaBean.fotografia.endereco}"/>
                     </h:panelGrid>
