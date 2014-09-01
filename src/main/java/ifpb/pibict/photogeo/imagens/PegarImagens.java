@@ -11,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import org.primefaces.model.UploadedFile;
 
 /**
@@ -22,6 +24,7 @@ public class PegarImagens implements Serializable {
     public PegarImagens() {
     }
 
+    
     public void selecionarImagens(UploadedFile upF) {
 
         try {

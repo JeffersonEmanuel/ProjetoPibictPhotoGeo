@@ -15,21 +15,22 @@
             <ui:define name="content">
                 
                 
-                <h:form>
+                <h:form id="enviar">
                      <p:fileUpload fileUploadListener="#{fotografiaBean.fotoComAlbum}" 
                                   label="Fotos" mode="advanced" 
                                   multiple="true" auto="true"/>
                     
                     
                     
-                    <h:panelGrid columns="4">
-                        <p:graphicImage url="#{fotografiaBean.fotografia.endereco}"/>
-                    </h:panelGrid>
                     
                 </h:form>
                 
-                
-                
+                <h:form id="buscar">
+                    <h:panelGrid columns="4" >
+                        <p:graphicImage value="#{fotografiaBean.carregaImagem()}"/>
+                    </h:panelGrid>
+                </h:form>
+                    
             </ui:define>
 
             <ui:define name="rodape">

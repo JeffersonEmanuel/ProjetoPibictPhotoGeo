@@ -6,10 +6,15 @@
 package ifpb.pibict.photogeo.beans;
 
 import com.drew.imaging.ImageProcessingException;
-import com.drew.metadata.Tag;
 import com.google.common.collect.Lists;
-import java.io.FileNotFoundException;
+import ifpb.pibict.photogeo.entidades.Fotografia;
+import ifpb.pibict.photogeo.imagens.CriarImagem;
+import ifpb.pibict.photogeo.servico.RegistrarServicoFotografia;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +22,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.FileUploadEvent;
-import org.xml.sax.SAXException;
-import ifpb.pibict.photogeo.entidades.Fotografia;
-import ifpb.pibict.photogeo.imagens.CriarImagem;
-import ifpb.pibict.photogeo.servico.RegistrarServicoFotografia;
-import ifpb.pibict.photogeo.metadados.ExtrairMetadados;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -77,5 +79,24 @@ public class FotografiaBean implements Serializable {
         this.fotografia = new Fotografia();
         return "templates/template.xhtml";
     }
+    
+    
+     public StreamedContent carregaImagem() {
+
+        StreamedContent imgLogo = null;
+
+        try {
+            final File arquivoImagem = new File("/home/jefferson/Área de Trabalho/Imagens/Imagens Processadas/20131206_202424.jpg");
+            final FileInputStream fileInputStream = new FileInputStream(arquivoImagem);
+            final InputStream is = new BufferedInputStream(fileInputStream);
+            imgLogo = new DefaultStreamedContent(is);
+        } catch (Exception e) {
+
+        }
+
+        return imgLogo;
+
+    }
+    
 
 }
