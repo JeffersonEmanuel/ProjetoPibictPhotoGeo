@@ -19,14 +19,11 @@
                      <p:fileUpload fileUploadListener="#{fotografiaBean.fotoComAlbum}" 
                                   label="Fotos" mode="advanced" 
                                   multiple="true" auto="true"/>
-                    
-                    
-                    
-                    
                 </h:form>
                 
-                <h:form id="buscar">
-                    <p:dataGrid var="fotografia" value="#{fotografiaBean.imagem}">
+                <h:form id="buscar" >
+                    <p:dataGrid var="fotografia" value="#{fotografiaBean.imagemMostrar}" 
+                                widgetVar="fotos">
                     <h:panelGrid columns="4" >
                         <p:graphicImage value="#{fotografia}" width="300"/>
                     </h:panelGrid>

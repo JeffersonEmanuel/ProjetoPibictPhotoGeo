@@ -9,10 +9,12 @@ import com.drew.imaging.ImageProcessingException;
 import com.google.common.collect.Lists;
 import ifpb.pibict.photogeo.entidades.Fotografia;
 import ifpb.pibict.photogeo.imagens.CriarImagem;
+import ifpb.pibict.photogeo.imagens.ExibirImagens;
 import ifpb.pibict.photogeo.servico.RegistrarServicoFotografia;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -21,7 +23,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -31,15 +33,32 @@ import org.primefaces.model.StreamedContent;
  * @author jefferson
  */
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class FotografiaBean implements Serializable {
 
     private Fotografia fotografia = new Fotografia();
 
     private List<Fotografia> fotografias = new ArrayList<Fotografia>();
 
+    private CriarImagem ci = new CriarImagem();
+
     @ManagedProperty(value = "#{registrarServicoFotografia}")
     private RegistrarServicoFotografia servicoFotografia;
+
+//    ExibirImagens exibirImagens = new ExibirImagens();
+//    private List<StreamedContent> imagemMostrar = exibirImagens.carregaImagem(getFotografias());
+    public String salvar() {
+        this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
+        this.fotografia = new Fotografia();
+        return "templates/template.xhtml";
+    }
+
+    public String fotoComAlbum(FileUploadEvent event) throws ImageProcessingException, IOException {
+        this.fotografia = ci.criarImagem(event);
+        this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
+        this.fotografia = new Fotografia();
+        return "fotografia.xhtml";
+    }
 
     public Fotografia getFotografia() {
         return fotografia;
@@ -66,25 +85,16 @@ public class FotografiaBean implements Serializable {
         this.servicoFotografia = servicoFotografia;
     }
 
-    public String salvar() {
-        this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
-        this.fotografia = new Fotografia();
-        return "templates/template.xhtml";
+    List<StreamedContent> imagemMostrar;
+
+    public List<StreamedContent> getImagemMostrar() {
+        return imagemMostrar;
     }
 
-    private CriarImagem ci = new CriarImagem();
-
-    public String fotoComAlbum(FileUploadEvent event) throws ImageProcessingException, IOException {
-        this.fotografia = ci.criarImagem(event);
-        this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
-        this.fotografia = new Fotografia();
-        return "templates/template.xhtml";
-    }
-    List<StreamedContent> imagem;
-    
     @PostConstruct
     public void carregaImagem() {
-        imagem = new ArrayList<>();
+        
+        imagemMostrar = new ArrayList<>();
 
         for (Fotografia fotografiaTemp : getFotografias()) {
             String endereco = fotografiaTemp.getEndereco();
@@ -96,21 +106,11 @@ public class FotografiaBean implements Serializable {
                 final FileInputStream fileInputStream = new FileInputStream(arquivoImagem);
                 final InputStream is = new BufferedInputStream(fileInputStream);
                 imgLogo = new DefaultStreamedContent(is);
-            } catch (Exception e) {
-
+            } catch (FileNotFoundException e) {
+                System.out.println("Erro ao importar a imagem " + endereco);
             }
-            imagem.add(imgLogo);
+            imagemMostrar.add(imgLogo);
         }
     }
 
-    public List<StreamedContent> getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(List<StreamedContent> imagem) {
-        this.imagem = imagem;
-    }
-
-    
-    
 }
