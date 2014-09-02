@@ -26,9 +26,11 @@
                 </h:form>
                 
                 <h:form id="buscar">
+                    <p:dataGrid var="fotografia" value="#{fotografiaBean.imagem}">
                     <h:panelGrid columns="4" >
-                        <p:graphicImage value="#{fotografiaBean.carregaImagem()}"/>
+                        <p:graphicImage value="#{fotografia}" width="300"/>
                     </h:panelGrid>
+                    </p:dataGrid>
                 </h:form>
                     
             </ui:define>

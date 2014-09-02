@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -79,24 +80,37 @@ public class FotografiaBean implements Serializable {
         this.fotografia = new Fotografia();
         return "templates/template.xhtml";
     }
+    List<StreamedContent> imagem;
     
-    
-     public StreamedContent carregaImagem() {
+    @PostConstruct
+    public void carregaImagem() {
+        imagem = new ArrayList<>();
 
-        StreamedContent imgLogo = null;
+        for (Fotografia fotografiaTemp : getFotografias()) {
+            String endereco = fotografiaTemp.getEndereco();
+            System.out.println("------------------------->" + endereco);
+            StreamedContent imgLogo = null;
 
-        try {
-            final File arquivoImagem = new File("/home/jefferson/Área de Trabalho/Imagens/Imagens Processadas/20131206_202424.jpg");
-            final FileInputStream fileInputStream = new FileInputStream(arquivoImagem);
-            final InputStream is = new BufferedInputStream(fileInputStream);
-            imgLogo = new DefaultStreamedContent(is);
-        } catch (Exception e) {
+            try {
+                final File arquivoImagem = new File(endereco);
+                final FileInputStream fileInputStream = new FileInputStream(arquivoImagem);
+                final InputStream is = new BufferedInputStream(fileInputStream);
+                imgLogo = new DefaultStreamedContent(is);
+            } catch (Exception e) {
 
+            }
+            imagem.add(imgLogo);
         }
-
-        return imgLogo;
-
     }
-    
 
+    public List<StreamedContent> getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(List<StreamedContent> imagem) {
+        this.imagem = imagem;
+    }
+
+    
+    
 }
