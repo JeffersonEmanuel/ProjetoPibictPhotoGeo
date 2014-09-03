@@ -13,23 +13,28 @@
             </ui:define>
 
             <ui:define name="content">
-                
-                
+
+
                 <h:form id="enviar">
-                     <p:fileUpload fileUploadListener="#{fotografiaBean.fotoComAlbum}" 
+                    <p:fileUpload fileUploadListener="#{fotografiaBean.fotoComAlbum}" 
                                   label="Fotos" mode="advanced" 
                                   multiple="true" auto="true"/>
                 </h:form>
-                
+
                 <h:form id="buscar" >
-                    <p:dataGrid var="fotografia" value="#{fotografiaBean.imagemMostrar}" 
-                                widgetVar="fotos">
-                    <h:panelGrid columns="4" >
-                        <p:graphicImage value="#{fotografia}" width="300"/>
-                    </h:panelGrid>
+
+                    <p:dataGrid id="TabelaFotografias" var="fotografia" 
+                                value="#{fotografiaBean.imagemMostrar}" columns="4">
+                     
+                        <p:column>
+
+                            <p:graphicImage value="#{fotografiaBean.imagemMostrarTeste}" width="300"/>
+
+                        </p:column>
+
                     </p:dataGrid>
                 </h:form>
-                    
+
             </ui:define>
 
             <ui:define name="rodape">
