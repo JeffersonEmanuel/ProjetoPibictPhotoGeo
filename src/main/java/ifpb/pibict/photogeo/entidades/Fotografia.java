@@ -5,9 +5,10 @@
  */
 package ifpb.pibict.photogeo.entidades;
 
-import java.util.Calendar;
-import java.util.List;
+
 import org.neo4j.graphdb.Direction;
+import org.primefaces.model.StreamedContent;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
@@ -54,7 +55,7 @@ public class Fotografia {
     // Album ao qual a fotografia Pertence
     @RelatedTo(type = "Fotografia_Em_Evento", direction = Direction.OUTGOING)
     private Album album;
-
+    
     public Long getId() {
         return id;
     }
@@ -135,5 +136,8 @@ public class Fotografia {
     public void setAlbum(Album album) {
         this.album = album;
     }
+
+    
+    
 
 }

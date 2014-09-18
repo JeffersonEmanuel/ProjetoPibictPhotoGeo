@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -24,13 +25,13 @@
                 <h:form id="buscar" >
 
                     <p:dataGrid id="TabelaFotografias" var="fotografia" 
-                                value="#{fotografiaBean.imagemMostrar}" columns="4">
+                                value="#{fotografiaBean.n}" columns="4">
                      
-                        <p:column>
-
-                            <p:graphicImage value="#{fotografiaBean.imagemMostrarTeste}" width="300"/>
-
-                        </p:column>
+                        
+                        <p:graphicImage value="#{fotografiaBean.foto}" width="300"> 
+                            <f:param name="fotoNome" value="#{fotografia.nome}"/>
+                        </p:graphicImage>
+                           
 
                     </p:dataGrid>
                 </h:form>
