@@ -7,6 +7,7 @@ package ifpb.pibict.photogeo.beans;
 
 import com.drew.imaging.ImageProcessingException;
 import com.google.common.collect.Lists;
+import ifpb.pibict.photogeo.entidades.Album;
 import ifpb.pibict.photogeo.entidades.Fotografia;
 import ifpb.pibict.photogeo.imagens.CriarImagem;
 import ifpb.pibict.photogeo.servico.RegistrarServicoFotografia;
@@ -43,7 +44,9 @@ public class FotografiaBean implements Serializable {
     private List<Fotografia> fotografias = new ArrayList<Fotografia>();
 
     private List<StreamedContent> imagemMostrar = new ArrayList<StreamedContent>();
-
+    
+    private Album album = new Album();
+    
     private CriarImagem ci = new CriarImagem();
 
     @ManagedProperty(value = "#{registrarServicoFotografia}")
@@ -120,28 +123,6 @@ public class FotografiaBean implements Serializable {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     public Fotografia getFotografia() {
         return fotografia;
@@ -172,4 +153,18 @@ public class FotografiaBean implements Serializable {
         this.imagemMostrar = imagemMostrar;
     }
 
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public void pegarFotosDeAlbum (String nome) {
+        album.setNome(nome);
+        System.out.println(album.getNome());
+    }
+    
+    
 }

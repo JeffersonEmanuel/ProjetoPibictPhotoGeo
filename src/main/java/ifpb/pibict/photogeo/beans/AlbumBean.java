@@ -57,4 +57,8 @@ public class AlbumBean implements Serializable{
     }
 
     
+    
+    
+    
+    
 }

@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -32,11 +33,11 @@
 
                 
                 
-                <h:form id="addFotografia">
+                <h:form id="listAlbum">
                     <p:dataGrid var="nomeAlbum" value="#{albumBean.albums}" >
                         <!--Falta fazer as o link para o album onde estão as fotografias-->
-                        <h:commandLink value="#{nomeAlbum.nome}">
-                            <!--<p:graphicImage url="" width="100%"/>-->
+                        <h:commandLink value="#{nomeAlbum.nome}" actionListener="#{fotografiaBean.
+                                                pegarFotosDeAlbum(nomeAlbum.nome)}">
                         </h:commandLink>
                     </p:dataGrid>
                 </h:form>
