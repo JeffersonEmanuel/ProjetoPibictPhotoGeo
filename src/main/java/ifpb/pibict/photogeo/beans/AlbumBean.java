@@ -31,7 +31,7 @@ public class AlbumBean implements Serializable{
     } 
 
     public String abrirFotosDoAlbum () {
-        return "fotografia.xhtml";
+        return "fotografia.jsf";
     }
     
     

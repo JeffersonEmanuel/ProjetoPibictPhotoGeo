@@ -2,6 +2,7 @@ package ifpb.pibict.photogeo.imagens;
 
 import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Tag;
+import ifpb.pibict.photogeo.entidades.Album;
 import ifpb.pibict.photogeo.entidades.Fotografia;
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +24,7 @@ public class CriarImagem {
 
     private Fotografia fotografia = new Fotografia();
 
-    public Fotografia criarImagem(FileUploadEvent event) throws ImageProcessingException, IOException {
+    public Fotografia criarImagem(FileUploadEvent event, Album album) throws ImageProcessingException, IOException {
         List<Tag> tag = extrairMetadados.metadados(event);
         System.out.println(event.getFile().getFileName());
         for (Tag nome : tag) {
@@ -38,6 +39,7 @@ public class CriarImagem {
         fotografia.setNome(event.getFile().getFileName());
         fotografia.setEndereco("/home/jefferson/Área de Trabalho/Imagens/Imagens Processadas/"
                 + event.getFile().getFileName());
+        fotografia.setAlbum(album);
         return fotografia;
     }
 

@@ -6,9 +6,11 @@
 
 package ifpb.pibict.photogeo.repo;
 
+import ifpb.pibict.photogeo.entidades.Album;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Repository;
 import ifpb.pibict.photogeo.entidades.Fotografia;
+import org.springframework.data.neo4j.annotation.Query;
 
 /**
  *
@@ -16,5 +18,11 @@ import ifpb.pibict.photogeo.entidades.Fotografia;
  */
 @Repository
 public interface FotografiaRepository extends GraphRepository<Fotografia>{
+ 
     
+    
+      @Query("start album=node:__types__(className=\"ifpb.pibict.photogeo.entidades.Album\") "
+              + "where album.nome = 'verTeste' "
+            + "return album ")
+    Album getAlbumFoto();
 }

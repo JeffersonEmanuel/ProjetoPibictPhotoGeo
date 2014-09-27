@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ifpb.pibict.photogeo.beans;
 
 import com.drew.imaging.ImageProcessingException;
@@ -12,20 +7,16 @@ import ifpb.pibict.photogeo.entidades.Fotografia;
 import ifpb.pibict.photogeo.imagens.CriarImagem;
 import ifpb.pibict.photogeo.servico.RegistrarServicoFotografia;
 import ifpb.pibict.photogeo.util.FotoUtil;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -39,14 +30,16 @@ import org.primefaces.model.StreamedContent;
 @RequestScoped
 public class FotografiaBean implements Serializable {
 
+    public static final Logger LOGGER = Logger.getGlobal();
+
     private Fotografia fotografia = new Fotografia();
 
     private List<Fotografia> fotografias = new ArrayList<Fotografia>();
 
     private List<StreamedContent> imagemMostrar = new ArrayList<StreamedContent>();
-    
+
     private Album album = new Album();
-    
+
     private CriarImagem ci = new CriarImagem();
 
     @ManagedProperty(value = "#{registrarServicoFotografia}")
@@ -57,7 +50,7 @@ public class FotografiaBean implements Serializable {
 
     @PostConstruct
     public void init() {
-         n = new ArrayList<>();
+        listaDeFotos = new ArrayList<>();
     }
 
     public String salvar() {
@@ -67,50 +60,22 @@ public class FotografiaBean implements Serializable {
     }
 
     public String fotoComAlbum(FileUploadEvent event) throws ImageProcessingException, IOException {
-        this.fotografia = ci.criarImagem(event);
+        this.album = this.servicoFotografia.getFotografiaRepository().getAlbumFoto();
+        this.fotografia = ci.criarImagem(event, this.album);
         this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
         this.fotografia = new Fotografia();
         return "fotografia.xhtml";
     }
-    
-    
-    public List<StreamedContent> amostraDeImagens() {
-        this.imagemMostrar = new ArrayList<StreamedContent>();
-        StreamedContent imgLogo = null;
-        File arquivoImagem = null;
-        FileInputStream fileInputStream = null;
-        InputStream is = null;
 
-        for (Fotografia fotografiaTemp : getFotografias()) {
+    List<Fotografia> listaDeFotos;
 
-            String endereco = fotografiaTemp.getEndereco();
-            System.out.println("------------------------->" + endereco);
-
-            try {
-                arquivoImagem = new File(endereco);
-                fileInputStream = new FileInputStream(arquivoImagem);
-                is = new BufferedInputStream(fileInputStream);
-                imgLogo = new DefaultStreamedContent(is);
-            } catch (FileNotFoundException e) {
-                System.out.println("Erro ao importar a imagem " + endereco);
-            }
-            imagemMostrar.add(imgLogo);
-//            imagemMostrarTeste = imgLogo;
+    public List<Fotografia> getListaDeFotos() {
+        for (Fotografia f : getFotografias()) {
+            listaDeFotos.add(f);
         }
-        return imagemMostrar;
+        return listaDeFotos;
     }
 
-    
-    
-     List<Fotografia> n;
-    public List<Fotografia> getN() {
-          for(Fotografia f : getFotografias()){
-            n.add(f);
-        }
-        return n;
-    }
-    
-    
     public StreamedContent getFoto() throws FileNotFoundException {
         String fotoNome = FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestParameterMap().get("fotoNome");
@@ -121,8 +86,6 @@ public class FotografiaBean implements Serializable {
             return FotoUtil.recuperarFotoDisco(fotoNome);
         }
     }
-    
-    
 
     public Fotografia getFotografia() {
         return fotografia;
@@ -161,10 +124,12 @@ public class FotografiaBean implements Serializable {
         this.album = album;
     }
 
-    public void pegarFotosDeAlbum (String nome) {
-        album.setNome(nome);
-        System.out.println(album.getNome());
+    private String nomeAlbumVer;
+
+    public void setNomeAlbum(String nome) {
+        System.out.println(nome);
+        nomeAlbumVer = nome;
+        System.out.println(nomeAlbumVer + "<=========================");
     }
-    
-    
+
 }

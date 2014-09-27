@@ -24,7 +24,7 @@
 
                 <h:form id="buscar" >
                     <p:dataGrid id="TabelaFotografias" var="fotografia" 
-                                value="#{fotografiaBean.n}" columns="4">
+                                value="#{fotografiaBean.listaDeFotos    }" columns="4">
                         <p:commandLink onclick="PF('teste').show()" >
                         <p:graphicImage value="#{fotografiaBean.foto}" width="300"> 
                             <f:param name="fotoNome" value="#{fotografia.nome}"/>
