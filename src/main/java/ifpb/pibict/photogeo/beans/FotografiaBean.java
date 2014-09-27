@@ -60,7 +60,7 @@ public class FotografiaBean implements Serializable {
     }
 
     public String fotoComAlbum(FileUploadEvent event) throws ImageProcessingException, IOException {
-        this.album = this.servicoFotografia.getFotografiaRepository().getAlbumFoto();
+        this.album = this.servicoFotografia.getFotografiaRepository().getAlbumFoto("verTeste");
         this.fotografia = ci.criarImagem(event, this.album);
         this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
         this.fotografia = new Fotografia();

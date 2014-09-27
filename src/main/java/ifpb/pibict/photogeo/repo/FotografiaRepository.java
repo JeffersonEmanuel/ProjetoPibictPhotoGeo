@@ -20,9 +20,8 @@ import org.springframework.data.neo4j.annotation.Query;
 public interface FotografiaRepository extends GraphRepository<Fotografia>{
  
     
-    
       @Query("start album=node:__types__(className=\"ifpb.pibict.photogeo.entidades.Album\") "
-              + "where album.nome = 'verTeste' "
+              + "where album.nome = {0} "
             + "return album ")
-    Album getAlbumFoto();
+    Album getAlbumFoto(String nomeAlbum);
 }
