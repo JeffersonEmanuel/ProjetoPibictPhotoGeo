@@ -36,8 +36,8 @@
                 <h:form id="listAlbum">
                     <p:dataGrid var="nomeAlbum" value="#{albumBean.albums}" >
                         <!--Falta fazer as o link para o album onde estão as fotografias-->
-                        <h:commandLink value="#{nomeAlbum.nome}" actionListener="#{fotografiaBean.setNomeAlbum(nomeAlbum.nome)}" 
-                                                action="fotografia.jsf">
+                        <h:commandLink value="#{nomeAlbum.nome}" action="#{fotografiaBean.nomeAlbum}">
+                            <f:setPropertyActionListener target="#{fotografiaBean.nomeAlbumVer}" value="#{nomeAlbum.nome}" />
                         </h:commandLink>
                     </p:dataGrid>
                 </h:form>

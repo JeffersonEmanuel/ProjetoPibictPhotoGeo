@@ -42,6 +42,10 @@ public class FotografiaBean implements Serializable {
 
     private CriarImagem ci = new CriarImagem();
 
+    private String nomeAlbumVer;
+
+    FacesContext contexto = FacesContext.getCurrentInstance();
+
     @ManagedProperty(value = "#{registrarServicoFotografia}")
     private RegistrarServicoFotografia servicoFotografia;
 
@@ -60,7 +64,8 @@ public class FotografiaBean implements Serializable {
     }
 
     public String fotoComAlbum(FileUploadEvent event) throws ImageProcessingException, IOException {
-        this.album = this.servicoFotografia.getFotografiaRepository().getAlbumFoto("verTeste");
+        String nomeDoAlbum = (String) contexto.getExternalContext().getSessionMap().get("album");
+        this.album = this.servicoFotografia.getFotografiaRepository().getAlbumFoto(nomeDoAlbum);
         this.fotografia = ci.criarImagem(event, this.album);
         this.servicoFotografia.getFotografiaRepository().save(this.fotografia);
         this.fotografia = new Fotografia();
@@ -124,12 +129,18 @@ public class FotografiaBean implements Serializable {
         this.album = album;
     }
 
-    private String nomeAlbumVer;
-
-    public void setNomeAlbum(String nome) {
-        System.out.println(nome);
-        nomeAlbumVer = nome;
+    public String nomeAlbum() {
         System.out.println(nomeAlbumVer + "<=========================");
+        contexto.getExternalContext().getSessionMap().put("album", nomeAlbumVer);
+        return "fotografia.jsf";
+    }
+
+    public String getNomeAlbumVer() {
+        return nomeAlbumVer;
+    }
+
+    public void setNomeAlbumVer(String nomeAlbumVer) {
+        this.nomeAlbumVer = nomeAlbumVer;
     }
 
 }
