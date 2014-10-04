@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/template.xhtml">
+
+            <ui:define name="cabecario">
+            </ui:define>
+
+            <ui:define name="content">
+
+
+                <h:form id="enviar">
+                    <p:fileUpload fileUploadListener="#{fotografiaBean.fotoComAlbum}" 
+                                  label="Fotos" mode="advanced" 
+                                  multiple="true" auto="true"/>
+                </h:form>
+
+                <h:form id="buscar" >
+                    <p:dataGrid id="TabelaFotografias" var="fotografia" 
+                                value="#{fotografiaBean.listaDeFotosDoAlbum}" columns="4">
+                        <p:commandLink onclick="PF('teste').show()" >
+                        <p:graphicImage value="#{fotografiaBean.foto}" width="300"> 
+                            <f:param name="fotoNome" value="#{fotografia.nome}"/>
+                        </p:graphicImage>
+                        </p:commandLink>
+
+                    </p:dataGrid>
+                    
+                    <p:dialog widgetVar="teste" width="1200">
+                        <p:columns var="2">
+                        <p:graphicImage value="#{fotografiaBean.foto}" width="800"> 
+                            <f:param name="fotoNome" value="#{fotografia.nome}"/>
+                        </p:graphicImage>
+                            <h:outputText value="gdfgddf"/>
+                        </p:columns>
+                    </p:dialog>
+                    
+                
+                </h:form>
+                
+                
+
+            </ui:define>
+
+            <ui:define name="rodape">
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

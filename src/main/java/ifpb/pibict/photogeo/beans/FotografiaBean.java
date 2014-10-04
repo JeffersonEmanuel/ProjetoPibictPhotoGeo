@@ -42,6 +42,10 @@ public class FotografiaBean implements Serializable {
 
     private CriarImagem ci = new CriarImagem();
 
+    private List<Fotografia> listaDeFotos;
+
+    private List<Fotografia> listaDeFotosDoAlbum;
+
     private String nomeAlbumVer;
 
     FacesContext contexto = FacesContext.getCurrentInstance();
@@ -55,6 +59,7 @@ public class FotografiaBean implements Serializable {
     @PostConstruct
     public void init() {
         listaDeFotos = new ArrayList<>();
+        listaDeFotosDoAlbum = new ArrayList<>();
     }
 
     public String salvar() {
@@ -71,8 +76,6 @@ public class FotografiaBean implements Serializable {
         this.fotografia = new Fotografia();
         return "fotografia.xhtml";
     }
-
-    List<Fotografia> listaDeFotos;
 
     public List<Fotografia> getListaDeFotos() {
         for (Fotografia f : getFotografias()) {
@@ -132,7 +135,7 @@ public class FotografiaBean implements Serializable {
     public String nomeAlbum() {
         System.out.println(nomeAlbumVer + "<=========================");
         contexto.getExternalContext().getSessionMap().put("album", nomeAlbumVer);
-        return "fotografia.jsf";
+        return "fotografia_album.jsf";
     }
 
     public String getNomeAlbumVer() {
@@ -141,6 +144,13 @@ public class FotografiaBean implements Serializable {
 
     public void setNomeAlbumVer(String nomeAlbumVer) {
         this.nomeAlbumVer = nomeAlbumVer;
+    }
+
+    public List<Fotografia> getListaDeFotosDoAlbum() {
+        String nomeDoAlbum = (String) contexto.getExternalContext().getSessionMap().get("album");
+        listaDeFotosDoAlbum = this.servicoFotografia.getFotografiaRepository().getFotografiaPorAlbum(nomeAlbumVer);
+        System.out.println("sada");
+        return listaDeFotosDoAlbum;
     }
 
 }
